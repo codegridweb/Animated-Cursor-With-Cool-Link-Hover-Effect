@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Awesome Hover Effect + Animated Cursor | Codegrid</title>
+      <link rel="stylesheet" href="style.css">
+</head>
+<body>
+      <div class="nav-wrapper">
+            <nav>
+                  <a href="#" class="hover-this"><span>Home</span></a>
+                  <a href="#" class="hover-this"><span>Our Story</span></a>
+                  <a href="#" class="hover-this"><span>Studio</span></a>
+                  <a href="#" class="hover-this"><span>Contact</span></a>
+                  <div class="cursor"></div>
+            </nav>
+      </div>
+
+<script>
+
+(function () {
+
+      const link = document.querySelectorAll('nav > .hover-this');
+      const cursor = document.querySelector('.cursor');
+
+      const animateit = function (e) {
+            const span = this.querySelector('span');
+            const { offsetX: x, offsetY: y } = e,
+            { offsetWidth: width, offsetHeight: height } = this,
+
+            move = 25,
+            xMove = x / width * (move * 2) - move,
+            yMove = y / height * (move * 2) - move;
+
+            span.style.transform = `translate(${xMove}px, ${yMove}px)`;
+
+            if (e.type === 'mouseleave') span.style.transform = '';
+      };
+
+      const editCursor = e => {
+            const { clientX: x, clientY: y } = e;
+            cursor.style.left = x + 'px';
+            cursor.style.top = y + 'px';
+      };
+
+      link.forEach(b => b.addEventListener('mousemove', animateit));
+      link.forEach(b => b.addEventListener('mouseleave', animateit));
+      window.addEventListener('mousemove', editCursor);
+
+})();
+
+</script>
+</body>
+</html>
